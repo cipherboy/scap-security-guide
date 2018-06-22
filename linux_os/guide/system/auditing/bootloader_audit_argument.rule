@@ -1,6 +1,6 @@
 documentation_complete: true
 
-prodtype: rhel7,fedora
+prodtype: rhel6,rhel7,fedora
 
 title: 'Enable Auditing for Processes Which Start Prior to the Audit Daemon'
 
