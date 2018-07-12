@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel7
-
 title: 'Ensure All User Initialization Files Have Mode 0740 Or Less Permissive'
 
 description: |-

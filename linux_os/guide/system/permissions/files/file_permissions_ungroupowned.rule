@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel6,rhel7,fedora
-
 title: 'Ensure All Files Are Owned by a Group'
 
 description: |-
