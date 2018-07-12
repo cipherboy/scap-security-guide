@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel7
-
 title: 'Verify User Who Owns <tt>/etc/cron.allow</tt> file'
 
 description: |-

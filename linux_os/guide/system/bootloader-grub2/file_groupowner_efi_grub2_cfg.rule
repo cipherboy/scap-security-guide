@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel7,ol7
-
 title: 'Verify /boot/efi/EFI/redhat/grub.cfg Group Ownership'
 
 description: |-

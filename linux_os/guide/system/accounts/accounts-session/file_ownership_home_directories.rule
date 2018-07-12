@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel7
-
 title: 'All Interactive User Home Directories Must Be Owned By The Primary User'
 
 description: |-

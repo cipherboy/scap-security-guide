@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel7
-
 title: 'Set Permissions on All Configuration Files Inside <tt>/etc/httpd/conf.modules.d/</tt>'
 
 description: '{{{ describe_file_permissions(file="/etc/http/conf.modules.d/*", perms="0640") }}}'

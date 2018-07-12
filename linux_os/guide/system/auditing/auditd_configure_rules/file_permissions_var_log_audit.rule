@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel6,rhel7,fedora
-
 title: 'System Audit Logs Must Have Mode 0640 or Less Permissive'
 
 description: |-

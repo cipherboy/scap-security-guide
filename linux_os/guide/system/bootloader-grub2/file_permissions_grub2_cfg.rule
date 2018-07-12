@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel7,fedora
-
 title: 'Verify /boot/grub2/grub.cfg Permissions'
 
 description: |-

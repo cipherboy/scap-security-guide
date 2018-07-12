@@ -1,7 +1,5 @@
 documentation_complete: true
 
-prodtype: rhel7
-
 title: 'Verify /boot/efi/EFI/redhat/grub.cfg Permissions'
 
 description: |-
