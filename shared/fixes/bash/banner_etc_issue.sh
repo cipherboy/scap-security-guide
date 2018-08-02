@@ -1,4 +1,4 @@
-# platform = Red Hat Enterprise Linux 6
+# platform = multi_platform_all
 . /usr/share/scap-security-guide/remediation_functions
 populate login_banner_text
 
@@ -14,4 +14,4 @@ printf "\n" >> /etc/issue
 
 
 
-hSoMswlNjlmg9HHEjlKp18OkfuqBTc - rhel6
+hSoMswlNjlmg9HHEjlKp18OkfuqBTc - shared
