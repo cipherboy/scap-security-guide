@@ -23,3 +23,6 @@ ocil: |-
     are installed, run the following command(s):
     <pre>$ rpm -q MFEcma</pre>
     <pre>$ rpm -q MFErt</pre>
+
+depends:
+    - install_mcafee_antivirus
