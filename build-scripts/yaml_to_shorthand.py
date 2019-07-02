@@ -64,7 +64,7 @@ def main():
 
     if args.action == "build":
         loader = ssg.build_yaml.BuildLoader(
-            profiles_root, args.bash_remediation_fns, env_yaml,
+            profiles_root, args.bash_remediation_fns, env_yaml, base_dir,
             args.resolved_rules_dir)
         loader.process_directory_tree(benchmark_root)
 
