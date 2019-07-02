@@ -10,7 +10,7 @@ import yaml
 
 from .constants import XCCDF_PLATFORM_TO_CPE
 from .constants import PRODUCT_TO_CPE_MAPPING
-from .rules import get_rule_dir_id, get_rule_dir_yaml, is_rule_dir
+from .rules import find_rule_dirs, get_rule_dir_id, get_rule_dir_yaml, is_rule_dir
 from .rule_yaml import parse_prodtype
 
 from .checks import is_cce_format_valid, is_cce_value_valid
@@ -125,6 +125,10 @@ class Profile(object):
             yaml.dump(to_dump, f, indent=4)
 
     def _parse_selections(self, entries):
+        rules = dict()
+        for rule_dir in find_rule_dirs():
+            rules[get_rule_dir_id(rule_dir)] = get_rule_dir_yaml(rule_dir)
+
         for item in entries:
             if "=" in item:
                 varname, value = item.split("=", 1)
@@ -132,7 +136,18 @@ class Profile(object):
             elif item.startswith("!"):
                 self.unselected.append(item[1:])
             else:
-                self.selected.append(item)
+                new_rules = []
+                queue = [item]
+                while queue:
+                    q_item = queue.pop(0)
+                    new_rules.insert(0, q_item)
+                    r = Rule.from_yaml(rules[item])
+                    for rule_id in r.depends:
+                        queue.append(rule_id)
+
+                self.selected.extend(new_rules)
+
+        assert False
 
     def to_xml_element(self):
         element = ET.Element('Profile')
@@ -607,6 +622,7 @@ class Rule(object):
         "oval_external_content": lambda: None,
         "warnings": lambda: list(),
         "platform": lambda: None,
+        "depends": lambda: list()
     }
 
     def __init__(self, id_):
@@ -623,6 +639,7 @@ class Rule(object):
         self.oval_external_content = None
         self.warnings = []
         self.platform = None
+        self.depends = []
 
     @staticmethod
     def from_yaml(yaml_file, env_yaml=None):
@@ -914,7 +931,7 @@ class DirectoryLoader(object):
 
 
 class BuildLoader(DirectoryLoader):
-    def __init__(self, profiles_dir, bash_remediation_fns, env_yaml, resolved_rules_dir=None):
+    def __init__(self, profiles_dir, bash_remediation_fns, env_yaml, base_dir, resolved_rules_dir=None):
         super(BuildLoader, self).__init__(profiles_dir, bash_remediation_fns, env_yaml)
 
         self.action = "build"
@@ -922,6 +939,8 @@ class BuildLoader(DirectoryLoader):
         self.resolved_rules_dir = resolved_rules_dir
         if resolved_rules_dir and not os.path.isdir(resolved_rules_dir):
             os.mkdir(resolved_rules_dir)
+
+        self.base_dir = base_dir
 
     def _process_values(self):
         for value_yaml in self.value_files:
